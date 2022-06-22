@@ -1,0 +1,5 @@
+packages:
+  - name: songs
+    actions:
+      - name: songs
+        runtime: go:default

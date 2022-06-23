@@ -42,7 +42,7 @@
   <script type="text/javascript">
     var last = {season: undefined, episode: undefined}
     var FUNCTION_API_URL = "%%FUNCTION_API_URL%%";
-    var envAPI = '/songs/list'
+    //var envAPI = '/songs/list'
 
     $("#submit").click(function () {
       search()
@@ -56,16 +56,12 @@
       }
       last.season = season
       last.episode = episode
-      let API = FUNCTION_API_URL + envAPI
-      let src = API + '?season=' + escape(season) + '&episode=' + escape(episode)
+      //let API = FUNCTION_API_URL + envAPI
+      let src = FUNCTION_API_URL + '?season=' + escape(season) + '&episode=' + escape(episode)
 
       $.get(src, function (data, status) {
             console.log("status", status)
             var songs = $.parseJSON(data)
-            if (songs.length == 0) {
-              $("#result").html('<p>no data</p>')
-              return
-            }
             var el = `
 <table class="table">
   <thead>

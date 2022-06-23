@@ -1,0 +1,44 @@
+{
+  "songs": [
+    {
+      "name": "First Day of School",
+      "season": 1,
+      "episode": 1
+    },
+    {
+      "name": "Baa Baa Black Sheep",
+      "season": 1,
+      "episode": 1
+    },
+    {
+      "name": "Swimming Song",
+      "season": 1,
+      "episode": 1
+    },
+    {
+      "name": "Dinosaur Song",
+      "season": 1,
+      "episode": 1
+    },
+    {
+      "name": "Five Little Monkeys Jumping on the Bed",
+      "season": 1,
+      "episode": 1
+    },
+    {
+      "name": "Jobs and Career Song",
+      "season": 1,
+      "episode": 1
+    },
+    {
+      "name": "Thank You Song",
+      "season": 1,
+      "episode": 1
+    },
+    {
+      "name": "Field Day Song",
+      "season": 1,
+      "episode": 1
+    }
+  ]
+}

@@ -109,7 +109,7 @@ func getSongsForEpisode(db *sql.DB, season, episode int) ([]Song, error) {
 	query := sq.Select("name", "season", "episode", "start_time").
 		From("songs").
 		Where(sq.And{sq.Eq{"season": season}, sq.Eq{"episode": episode}}).
-		OrderBy("start_time DESC")
+		OrderBy("start_time ASC")
 
 	rows, err := query.RunWith(db).QueryContext(ctx)
 	if err != nil {

@@ -28,7 +28,7 @@ type Song struct {
 	Name      string `json:"name"`
 	Season    int    `json:"season"`
 	Episode   int    `json:"episode"`
-	StartTime string `json"start_time"`
+	StartTime string `json:"start_time"`
 }
 
 func (db *DB) Close() error {
@@ -107,7 +107,6 @@ func mustDSNFromEnv() string {
 	cfg.Net = "tcp"
 	cfg.Addr = net.JoinHostPort(host, port)
 	cfg.DBName = db
-	cfg.AllowNativePasswords = true
 
 	return cfg.FormatDSN()
 }
@@ -142,8 +141,8 @@ func loadFromFile(filename string) (Songs, error) {
 func seed(db *sql.DB, songs Songs) error {
 	for _, song := range songs.Songs {
 		_, err := sq.Insert("songs").
-			Columns("name", "season", "episode").
-			Values(song.Name, song.Season, song.Episode).
+			Columns("name", "season", "episode", "start_time").
+			Values(song.Name, song.Season, song.Episode, song.StartTime).
 			RunWith(db).Exec()
 		if err != nil {
 			return err

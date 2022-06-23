@@ -3,42 +3,128 @@
     {
       "name": "First Day of School",
       "season": 1,
-      "episode": 1
+      "episode": 1,
+      "start_time": "00:00:22"
     },
     {
       "name": "Baa Baa Black Sheep",
       "season": 1,
-      "episode": 1
+      "episode": 1,
+      "start_time": "00:03:14"
     },
     {
       "name": "Swimming Song",
       "season": 1,
-      "episode": 1
+      "episode": 1,
+      "start_time": "00:05:44"
     },
     {
       "name": "Dinosaur Song",
       "season": 1,
-      "episode": 1
+      "episode": 1,
+      "start_time": "00:08:20"
     },
     {
       "name": "Five Little Monkeys Jumping on the Bed",
       "season": 1,
-      "episode": 1
+      "episode": 1,
+      "start_time": "00:11:21"
     },
     {
       "name": "Jobs and Career Song",
       "season": 1,
-      "episode": 1
+      "episode": 1,
+      "start_time": "00:14:32"
     },
     {
       "name": "Thank You Song",
       "season": 1,
-      "episode": 1
+      "episode": 1,
+      "start_time": "00:18:08"
     },
     {
       "name": "Field Day Song",
       "season": 1,
-      "episode": 1
+      "episode": 1,
+      "start_time": "00:21:23"
+    },
+    {
+      "name": "Numbers Song with Little Chicks",
+      "season": 1,
+      "episode": 1,
+      "start_time": "00:24:22"
+    },
+    {
+      "name": "Father and Sons Song",
+      "season": 1,
+      "episode": 1,
+      "start_time": "00:27:16"
+    },
+    {
+      "name": "Class Pet Song",
+      "season": 1,
+      "episode": 1,
+      "start_time": "00:29:41"
+    },
+    {
+      "name": "Nap Time Song",
+      "season": 1,
+      "episode": 1,
+      "start_time": "00:32:15"
+    },
+    {
+      "name": "Funny Face Song",
+      "season": 1,
+      "episode": 1,
+      "start_time": "00:35:19"
+    },
+    {
+      "name": "Basketball Song",
+      "season": 1,
+      "episode": 1,
+      "start_time": "00:38:10"
+    },
+    {
+      "name": "Sea Animal Song",
+      "season": 1,
+      "episode": 1,
+      "start_time": "00:41:03"
+    },
+    {
+      "name": "My Sister Song",
+      "season": 1,
+      "episode": 1,
+      "start_time": "00:43:30"
+    },
+    {
+      "name": "Music Song",
+      "season": 1,
+      "episode": 1,
+      "start_time": "00:46:31"
+    },
+    {
+      "name": "JJ Song",
+      "season": 1,
+      "episode": 1,
+      "start_time": "00:49:34"
+    },
+    {
+      "name": "Where Has My Little Dog Gone?",
+      "season": 1,
+      "episode": 1,
+      "start_time": "00:52:40"
+    },
+    {
+      "name": "Stretching and Exercise Song",
+      "season": 1,
+      "episode": 1,
+      "start_time": "00:55:18"
+    },
+    {
+      "name": "The More We Get Together",
+      "season": 1,
+      "episode": 1,
+      "start_time": "00:57:41"
     }
   ]
 }

@@ -143,6 +143,8 @@ func seed(db *sql.DB, songs Songs) error {
 		_, err := sq.Insert("songs").
 			Columns("name", "season", "episode", "start_time").
 			Values(song.Name, song.Season, song.Episode, song.StartTime).
+			Suffix("ON DUPLICATE KEY UPDATE name = ?, season = ?, episode = ?, start_time = ?",
+				song.Name, song.Season, song.Episode, song.StartTime).
 			RunWith(db).Exec()
 		if err != nil {
 			return err

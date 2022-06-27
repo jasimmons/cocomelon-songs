@@ -7,6 +7,7 @@ import (
 	"errors"
 	"net"
 	"os"
+	"strconv"
 	"time"
 
 	sq "github.com/Masterminds/squirrel"
@@ -23,13 +24,21 @@ type Song struct {
 }
 
 func Main(args map[string]interface{}) map[string]interface{} {
-	season, ok := args["season"].(int)
-	if !ok {
-		season = 1
-	}
-	episode, ok := args["episode"].(int)
-	if !ok {
+	var (
+		season  = 1
 		episode = 1
+	)
+
+	if s, ok := args["season"].(string); ok {
+		if i, err := strconv.Atoi(s); err == nil {
+			season = i
+		}
+	}
+
+	if e, ok := args["episode"].(string); ok {
+		if i, err := strconv.Atoi(e); err == nil {
+			episode = i
+		}
 	}
 
 	db, err := dbFromEnv()

@@ -11,7 +11,20 @@
 <body style="padding-top:10px">
   <div class="container" style="width:650px">
     <img src="assets/cocomelon-logo.png" class="img-fluid" alt="cocomelon logo">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" id="toggle">
+      <div class="d-flex p-3 justify-content-center">
+        <input type="checkbox" class="btn-check" id="toggle-search" autocomplete="off">
+        <label class="btn btn-outline-secondary" for="toggle-search">Search</label><br>
+      </div>
+    </div>
+    <div class="d-none row justify-content-center" id="search-songs">
+      <div class="col-3 form-floating">
+        <div class="form-outline">
+          <input type="text" id="search-term" placeholder="Song Name" class="form-control" />
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center" id="list-songs">
       <div class="col-3 form-floating">
         <select class="form-select" name="season" id="season">
           <option value="1">One</option>
@@ -40,15 +53,51 @@
   </div>
 
   <script type="text/javascript">
-    var last = {season: undefined, episode: undefined}
+    var last = {season: undefined, episode: undefined, term: undefined}
     var FUNCTION_API_URL = "%%FUNCTION_API_URL%%";
-    //var envAPI = '/songs/list'
+    var search = false;
 
     $("#submit").click(function () {
-      search()
+      if (search) {
+        do_search()
+      } else {
+        do_list()
+      }
     })
 
-    function search() {
+    $("#toggle-search").click(function () {
+      if (search) {
+        $("#list-songs").addClass("d-flex")
+        $("#list-songs").removeClass("d-none")
+        $("#search-songs").addClass("d-none")
+        $("#search-songs").removeClass("d-flex")
+      } else {
+        $("#list-songs").addClass("d-none")
+        $("#list-songs").removeClass("d-flex")
+        $("#search-songs").addClass("d-flex")
+        $("#search-songs").removeClass("d-none")
+      }
+      search = !search
+    })
+
+    function do_search() {
+      var term = $("#search-term").val()
+      if (last.term == term) {
+        return
+      }
+      last.term = term
+      last.season = undefined
+      last.episode = undefined
+      let src = FUNCTION_API_URL + '?term=' + escape(term)
+
+      $.get(src, function (data, status) {
+        console.log("status", status)
+        var songs = $.parseJSON(data)
+        renderResult("#result", songs)
+      })
+    }
+
+    function do_list() {
       var season = $("#season").val().trim()
       var episode = $("#episode").val().trim()
       if (last.season == season && last.episode == episode) {
@@ -56,13 +105,18 @@
       }
       last.season = season
       last.episode = episode
-      //let API = FUNCTION_API_URL + envAPI
+      last.term = undefined
       let src = FUNCTION_API_URL + '?season=' + escape(season) + '&episode=' + escape(episode)
 
       $.get(src, function (data, status) {
-            console.log("status", status)
-            var songs = $.parseJSON(data)
-            var el = `
+        console.log("status", status)
+        var songs = $.parseJSON(data)
+        renderResult("#result", songs)
+      })
+    }
+
+    function renderResult(selector, songsJson) {
+      var content = `
 <table class="table">
   <thead>
     <tr>
@@ -72,20 +126,19 @@
   </thead>
   <tbody>
 `;
-            songs.forEach(function(song, i) {
-                  el += `
+          songsJson.forEach(function(song, i) {
+            content += `
 <tr>
   <th scope="row">${song['name']}</th>
   <th scope="row">${song['start_time']}</th>
 </tr>
 `;
-            });
-            el += `
+          });
+          content+= `
   </tbody>
 </table>
 `;
-            $("#result").html(el)
-          })
+          $(selector).html(content)
     }
   </script>
 </body>

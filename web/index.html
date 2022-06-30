@@ -55,12 +55,15 @@
   <script type="text/javascript">
     var last = {season: undefined, episode: undefined, term: undefined}
     var FUNCTION_API_URL = "%%FUNCTION_API_URL%%";
+    var function_path = "/songs/list";
     var search = false;
 
     $("#submit").click(function () {
       if (search) {
+        function_path = "/songs/search"
         do_search()
       } else {
+        function_path = "/songs/list"
         do_list()
       }
     })
@@ -88,7 +91,7 @@
       last.term = term
       last.season = undefined
       last.episode = undefined
-      let src = FUNCTION_API_URL + '?term=' + escape(term)
+      let src = FUNCTION_API_URL + function_path + '?term=' + escape(term)
 
       $.get(src, function (data, status) {
         console.log("status", status)
@@ -106,7 +109,7 @@
       last.season = season
       last.episode = episode
       last.term = undefined
-      let src = FUNCTION_API_URL + '?season=' + escape(season) + '&episode=' + escape(episode)
+      let src = FUNCTION_API_URL + function_path + '?season=' + escape(season) + '&episode=' + escape(episode)
 
       $.get(src, function (data, status) {
         console.log("status", status)

@@ -96,7 +96,7 @@
       $.get(src, function (data, status) {
         console.log("status", status)
         var songs = $.parseJSON(data)
-        renderResult("#result", songs)
+        renderResult("#result", songs, true)
       })
     }
 
@@ -118,12 +118,20 @@
       })
     }
 
-    function renderResult(selector, songsJson) {
+    function renderResult(selector, songsJson, verbose = false) {
       var content = `
 <table class="table">
   <thead>
     <tr>
       <th scope="col">Name</th>
+`;
+      if (verbose) {
+        content += `
+      <th scope="col">Season</th>
+      <th scope="col">Episode</th>
+`;
+      }
+      content += `
       <th scope="col">Start Time</th>
     </tr>
   </thead>
@@ -133,6 +141,15 @@
             content += `
 <tr>
   <th scope="row">${song['name']}</th>
+`;
+            if (verbose) {
+              content += `
+  <th scope="row">${song['season']}</th>
+  <th scope="row">${song['episode']}</th>
+`;
+            }
+
+            content += `
   <th scope="row">${song['start_time']}</th>
 </tr>
 `;

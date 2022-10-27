@@ -8,6 +8,8 @@ github.com/jasimmons/cocomelon-songs v0.0.0-20220622135331-609b70b4220b h1:hpJWe
 github.com/jasimmons/cocomelon-songs v0.0.0-20220622135331-609b70b4220b/go.mod h1:76Vy0nPBD3WkF1/dIOjF3Cu+YOiubqbrH79uJAAU09I=
 github.com/jasimmons/cocomelon-songs v0.0.0-20220623021540-96f0378ca0e9 h1:aVfXzP004o/MOXO710A2vLxlaKsl4zG8Vg0UAvxPV0I=
 github.com/jasimmons/cocomelon-songs v0.0.0-20220623021540-96f0378ca0e9/go.mod h1:76Vy0nPBD3WkF1/dIOjF3Cu+YOiubqbrH79uJAAU09I=
+github.com/jasimmons/cocomelon-songs v0.0.0-20221027184901-295221fc2be3 h1:HfX7p62A84EvgZSBn9ym5ReDZbLYVXdyIO+qvl/lRHU=
+github.com/jasimmons/cocomelon-songs v0.0.0-20221027184901-295221fc2be3/go.mod h1:76Vy0nPBD3WkF1/dIOjF3Cu+YOiubqbrH79uJAAU09I=
 github.com/lann/builder v0.0.0-20180802200727-47ae307949d0 h1:SOEGU9fKiNWd/HOJuq6+3iTQz8KNCLtVX6idSoTLdUw=
 github.com/lann/builder v0.0.0-20180802200727-47ae307949d0/go.mod h1:dXGbAdH5GtBTC4WfIxhKZfyBF/HBFgRZSWwZ9g/He9o=
 github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 h1:P6pPBnrTSX3DEVR4fDembhRWSsG5rVo6hYhAB/ADZrk=

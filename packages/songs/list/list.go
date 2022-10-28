@@ -55,6 +55,12 @@ func Main(args map[string]interface{}) map[string]interface{} {
 		}
 	}
 
+	if len(songs) == 0 {
+		return map[string]interface{}{
+			"body": "[]",
+		}
+	}
+
 	songsJson, err := json.Marshal(songs)
 	if err != nil {
 		return map[string]interface{}{

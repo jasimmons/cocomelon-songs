@@ -119,46 +119,58 @@
       })
     }
 
-    function renderResult(selector, songsJson, verbose = false) {
-      var content = `
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-`;
-      if (verbose) {
-        content += `
-      <th scope="col">Season</th>
-      <th scope="col">Episode</th>
-`;
-      }
-      content += `
-      <th scope="col">Start Time</th>
-    </tr>
-  </thead>
-  <tbody>
-`;
-          songsJson.forEach(function(song, i) {
-            content += `
-<tr>
-  <th scope="row">${song['name']}</th>
-`;
-            if (verbose) {
-              content += `
-  <th scope="row">${song['season']}</th>
-  <th scope="row">${song['episode']}</th>
-`;
-            }
+    function renderNoResult(selector) {
+          var content = `
+   <div class="row justify-content-center" style="font-weight: bold">No Results Found</div>
+   `;
+          $(selector).html(content)
+        }
 
-            content += `
-  <th scope="row">${song['start_time']}</th>
-</tr>
-`;
-          });
-          content+= `
-  </tbody>
-</table>
-`;
+    function renderResult(selector, songsJson, verbose = false) {
+          var content = `
+   <div class="row justify-content-center" style="font-weight: bold">No Results Found</div>
+   `;
+          if (songsJson.length != 0) {
+                content = `
+   <table class="table">
+   <thead>
+   <tr>
+   <th scope="col">Name</th>
+   `;
+                if (verbose) {
+                      content += `
+   <th scope="col">Season</th>
+   <th scope="col">Episode</th>
+   `;
+                    }
+                content += `
+   <th scope="col">Start Time</th>
+   </tr>
+   </thead>
+   <tbody>
+   `;
+                songsJson.forEach(function(song, i) {
+                      content += `
+   <tr>
+   <th scope="row">${song['name']}</th>
+   `;
+                      if (verbose) {
+                            content += `
+   <th scope="row">${song['season']}</th>
+   <th scope="row">${song['episode']}</th>
+   `;
+                          }
+
+                      content += `
+   <th scope="row">${song['start_time']}</th>
+   </tr>
+   `;
+                    });
+                content+= `
+   </tbody>
+   </table>
+   `;
+              }
           $(selector).html(content)
     }
   </script>

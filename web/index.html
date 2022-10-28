@@ -1,179 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <title>Cocomelon Song Search</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-</head>
+  <head>
+    <title>Cocomelon Song Search</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
 
-<body style="padding-top:10px">
-  <div class="container" style="width:650px">
-    <img src="assets/cocomelon-logo.png" class="img-fluid" alt="cocomelon logo">
-    <div class="row justify-content-center" id="toggle">
-      <div class="d-flex p-3 justify-content-center">
-        <input type="checkbox" class="btn-check" id="toggle-search" autocomplete="off">
-        <label class="btn btn-outline-secondary" for="toggle-search">Search</label><br>
-      </div>
-    </div>
-    <div class="d-none row justify-content-center" id="search-songs">
-      <div class="col-3 form-floating">
-        <div class="form-outline">
-          <input type="text" id="search-term" placeholder="Song Name" class="form-control" />
+  <body style="padding-top:10px">
+    <div class="container" style="width:650px">
+      <img src="assets/cocomelon-logo.png" class="img-fluid" alt="cocomelon logo">
+      <div class="row justify-content-center" id="toggle">
+        <div class="d-flex p-3 justify-content-center">
+          <input type="checkbox" class="btn-check" id="toggle-search" autocomplete="off">
+          <label class="btn btn-outline-secondary" for="toggle-search">Search</label><br>
         </div>
       </div>
-    </div>
-    <div class="row justify-content-center" id="list-songs">
-      <div class="col-3 form-floating">
-        <select class="form-select" name="season" id="season">
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-          <option value="4">Four</option>
-          <option value="5">Five</option>
-          <option value="6">Six</option>
-        </select>
-        <label for="season">Season</label>
+      <div class="d-none row justify-content-center" id="search-songs">
+        <div class="col-3 form-floating">
+          <div class="form-outline">
+            <input type="text" id="search-term" placeholder="Song Name" class="form-control" />
+          </div>
+        </div>
       </div>
-      <div class="col-3 form-floating">
-        <select class="form-select" name="episode" id="episode">
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-        <label for="episode">Episode</label>
+      <div class="row justify-content-center" id="list-songs">
+        <div class="col-3 form-floating">
+          <select class="form-select" name="season" id="season">
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            <option value="4">Four</option>
+            <option value="5">Five</option>
+            <option value="6">Six</option>
+          </select>
+          <label for="season">Season</label>
+        </div>
+        <div class="col-3 form-floating">
+          <select class="form-select" name="episode" id="episode">
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+          <label for="episode">Episode</label>
+        </div>
+      </div>
+      <div class="d-flex p-3 justify-content-center">
+        <button id="submit" type="button" class="btn btn-primary" style="margin-top:5px;">Submit</button>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col justify-content-center" id="result"></div>
       </div>
     </div>
-    <div class="d-flex p-3 justify-content-center">
-      <button id="submit" type="button" class="btn btn-primary" style="margin-top:5px;">Submit</button>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col justify-content-center" id="result"></div>
-    </div>
-  </div>
 
-  <script type="text/javascript">
-    var last = {season: undefined, episode: undefined, term: undefined}
-    var FUNCTION_API_URL = "%%FUNCTION_API_URL%%";
-    var function_path = "/songs/list";
-    var search = false;
+    <script type="text/javascript">
+      var last = {season: undefined, episode: undefined, term: undefined}
+      var FUNCTION_API_URL = "%%FUNCTION_API_URL%%";
+      var function_path = "/songs/list";
+      var search = false;
 
-    $("#submit").click(function () {
-      if (search) {
-        function_path = "/songs/search"
-        do_search()
-      } else {
-        function_path = "/songs/list"
-        do_list()
-      }
-    })
-
-    $("#toggle-search").click(function () {
-      if (search) {
-        $("#list-songs").addClass("d-flex")
-        $("#list-songs").removeClass("d-none")
-        $("#search-songs").addClass("d-none")
-        $("#search-songs").removeClass("d-flex")
-      } else {
-        $("#list-songs").addClass("d-none")
-        $("#list-songs").removeClass("d-flex")
-        $("#search-songs").addClass("d-flex")
-        $("#search-songs").removeClass("d-none")
-      }
-      search = !search
-    })
-
-    function do_search() {
-      var term = $("#search-term").val()
-      if (last.term == term) {
-        return
-      }
-      last.term = term
-      last.season = undefined
-      last.episode = undefined
-      let src = FUNCTION_API_URL + function_path + '?term=' + escape(term)
-
-      $.get(src, function (data, status) {
-        console.log("status", status)
-        var songs = $.parseJSON(data)
-        renderResult("#result", songs, true)
-      })
-    }
-
-    function do_list() {
-      var season = $("#season").val().trim()
-      var episode = $("#episode").val().trim()
-      if (last.season == season && last.episode == episode) {
-        return
-      }
-      last.season = season
-      last.episode = episode
-      last.term = undefined
-      let src = FUNCTION_API_URL + function_path + '?season=' + escape(season) + '&episode=' + escape(episode)
-
-      $.get(src, function (data, status) {
-        console.log("status", status)
-        var songs = $.parseJSON(data)
-        renderResult("#result", songs)
-      })
-    }
-
-    function renderNoResult(selector) {
-          var content = `
-   <div class="row justify-content-center" style="font-weight: bold">No Results Found</div>
-   `;
-          $(selector).html(content)
-        }
-
-    function renderResult(selector, songsJson, verbose = false) {
-          var content = `
-   <div class="row justify-content-center" style="font-weight: bold">No Results Found</div>
-   `;
-          if (songsJson.length != 0) {
-                content = `
-   <table class="table">
-   <thead>
-   <tr>
-   <th scope="col">Name</th>
-   `;
-                if (verbose) {
-                      content += `
-   <th scope="col">Season</th>
-   <th scope="col">Episode</th>
-   `;
-                    }
-                content += `
-   <th scope="col">Start Time</th>
-   </tr>
-   </thead>
-   <tbody>
-   `;
-                songsJson.forEach(function(song, i) {
-                      content += `
-   <tr>
-   <th scope="row">${song['name']}</th>
-   `;
-                      if (verbose) {
-                            content += `
-   <th scope="row">${song['season']}</th>
-   <th scope="row">${song['episode']}</th>
-   `;
+      $("#submit").click(function () {
+              if (search) {
+                      function_path = "/songs/search"
+                      do_search()
+                    } else {
+                            function_path = "/songs/list"
+                            do_list()
                           }
+            })
 
+      $("#toggle-search").click(function () {
+              if (search) {
+                      $("#list-songs").addClass("d-flex")
+                      $("#list-songs").removeClass("d-none")
+                      $("#search-songs").addClass("d-none")
+                      $("#search-songs").removeClass("d-flex")
+                    } else {
+                            $("#list-songs").addClass("d-none")
+                            $("#list-songs").removeClass("d-flex")
+                            $("#search-songs").addClass("d-flex")
+                            $("#search-songs").removeClass("d-none")
+                          }
+              search = !search
+            })
+
+      function do_search() {
+              var term = $("#search-term").val()
+              if (last.term == term) {
+                      return
+                    }
+              last.term = term
+              last.season = undefined
+              last.episode = undefined
+              let src = FUNCTION_API_URL + function_path + '?term=' + escape(term)
+
+              $.get(src, function (data, status) {
+                      console.log("status", status)
+                      var songs = $.parseJSON(data)
+                      renderResult("#result", songs, true)
+                    })
+            }
+
+      function do_list() {
+              var season = $("#season").val().trim()
+              var episode = $("#episode").val().trim()
+              if (last.season == season && last.episode == episode) {
+                      return
+                    }
+              last.season = season
+              last.episode = episode
+              last.term = undefined
+              let src = FUNCTION_API_URL + function_path + '?season=' + escape(season) + '&episode=' + escape(episode)
+
+              $.get(src, function (data, status) {
+                      console.log("status", status)
+                      var songs = $.parseJSON(data)
+                      renderResult("#result", songs)
+                    })
+            }
+
+      function renderResult(selector, songsJson, verbose = false) {
+              var content = `
+     <div class="row justify-content-center" style="font-weight: bold">No Results Found</div>
+     `;
+              if (songsJson.length != 0) {
+                      content = `
+     <table class="table">
+     <thead>
+     <tr>
+     <th scope="col">Name</th>
+     `;
+                      if (verbose) {
+                              content += `
+     <th scope="col">Season</th>
+     <th scope="col">Episode</th>
+     `;
+                            }
                       content += `
-   <th scope="row">${song['start_time']}</th>
-   </tr>
-   `;
-                    });
-                content+= `
-   </tbody>
-   </table>
-   `;
-              }
-          $(selector).html(content)
-    }
-  </script>
-</body>
+     <th scope="col">Start Time</th>
+     </tr>
+     </thead>
+     <tbody>
+     `;
+                      songsJson.forEach(function(song, i) {
+                              content += `
+     <tr>
+     <th scope="row">${song['name']}</th>
+     `;
+                              if (verbose) {
+                                      content += `
+     <th scope="row">${song['season']}</th>
+     <th scope="row">${song['episode']}</th>
+     `;
+                                    }
+
+                              content += `
+     <th scope="row">${song['start_time']}</th>
+     </tr>
+     `;
+                            });
+                      content+= `
+     </tbody>
+     </table>
+     `;
+                    }
+              $(selector).html(content)
+            }
+    </script>
+  </body>
 
 </html>
